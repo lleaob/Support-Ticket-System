@@ -26,7 +26,6 @@ function App() {
           ))}
         </ul>
       )}
-      <footer>{tickets.length} tickets</footer>
     </main>
   )
 }
