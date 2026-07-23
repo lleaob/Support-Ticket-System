@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 import { fetchTickets } from './api.js'
 
-function TicketList() {
+function TicketList({ onSelect }) {
   const [tickets, setTickets] = useState([])
   const [error, setError] = useState(null)
 
@@ -20,7 +20,9 @@ function TicketList() {
         <ul>
           {tickets.map((ticket) => (
             <li key={ticket.id}>
-              {ticket.subject} — {ticket.status} — {ticket.priority}
+              <button type="button" onClick={() => onSelect(ticket.id)}>
+                {ticket.subject} — {ticket.status} — {ticket.priority}
+              </button>
             </li>
           ))}
         </ul>

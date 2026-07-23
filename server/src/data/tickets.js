@@ -6,6 +6,7 @@ export const tickets = [
     status: "open",
     priority: "high",
     requester: "alice@example.com",
+    description: "Customer is unable to log in to their account and needs assistance.",
   },
   {
     id: 2,
@@ -13,6 +14,7 @@ export const tickets = [
     status: "pending",
     priority: "medium",
     requester: "bob@example.com",
+    description: "Customer has a question about a billing invoice and needs clarification.",
   },
   {
     id: 3,
@@ -20,5 +22,6 @@ export const tickets = [
     status: "open",
     priority: "low",
     requester: "carol@example.com",
+    description: "Customer is requesting that a dark mode option be added to the product.",
   },
 ];
