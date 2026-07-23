@@ -1,0 +1,13 @@
+import { tickets } from "../data/tickets.js";
+
+export function listTickets() {
+  return tickets;
+}
+
+export function getTicketById(id) {
+  const ticket = tickets.find((t) => t.id === Number(id));
+  if (!ticket) {
+    throw new Error(`Ticket ${id} not found`);
+  }
+  return ticket;
+}

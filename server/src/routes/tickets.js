@@ -1,18 +1,18 @@
 import { Router } from "express";
-import { tickets } from "../data/tickets.js";
+import { listTickets, getTicketById } from "../services/ticketService.js";
 
 const router = Router();
 
 router.get("/", (req, res) => {
-  res.json(tickets);
+  res.json(listTickets());
 });
 
 router.get("/:id", (req, res) => {
-  const ticket = tickets.find((t) => t.id === Number(req.params.id));
-  if (!ticket) {
-    return res.status(404).json({ error: `Ticket ${req.params.id} not found` });
+  try {
+    res.json(getTicketById(req.params.id));
+  } catch (err) {
+    res.status(404).json({ error: err.message });
   }
-  res.json(ticket);
 });
 
 export default router;
