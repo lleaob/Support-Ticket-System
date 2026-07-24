@@ -11,3 +11,7 @@ export function getTicketById(id) {
   }
   return ticket;
 }
+
+export function countTickets() {
+  return tickets.length;
+}
