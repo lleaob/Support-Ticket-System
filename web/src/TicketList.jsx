@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { fetchTickets } from './lib/api.js'
+import { fetchTickets, countOpenTickets } from './lib/api.js'
 
 function TicketList({ onSelect }) {
   const [tickets, setTickets] = useState([])
@@ -9,6 +9,10 @@ function TicketList({ onSelect }) {
     fetchTickets()
       .then(setTickets)
       .catch((err) => setError(err.message))
+
+    countOpenTickets()
+      .then((result) => console.log(result))
+      .catch((err) => console.error(err.message))
   }, [])
 
   return (
