@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { fetchTickets } from './api.js'
+import { fetchTickets } from './lib/api.js'
 
 function TicketList({ onSelect }) {
   const [tickets, setTickets] = useState([])
