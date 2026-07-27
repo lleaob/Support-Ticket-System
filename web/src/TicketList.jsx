@@ -4,6 +4,7 @@ import { fetchTickets, countOpenTickets } from './lib/api.js'
 function TicketList({ onSelect }) {
   const [tickets, setTickets] = useState([])
   const [error, setError] = useState(null)
+  const [openCount, setOpenCount] = useState(null)
 
   useEffect(() => {
     fetchTickets()
@@ -11,13 +12,14 @@ function TicketList({ onSelect }) {
       .catch((err) => setError(err.message))
 
     countOpenTickets()
-      .then((result) => console.log(result))
+      .then(({ open }) => setOpenCount(open))
       .catch((err) => console.error(err.message))
   }, [])
 
   return (
     <>
       <h1>Support Desk</h1>
+      {openCount !== null && <p>Open tickets: {openCount}</p>}
       {error ? (
         <p>Failed to load tickets: {error}</p>
       ) : (
