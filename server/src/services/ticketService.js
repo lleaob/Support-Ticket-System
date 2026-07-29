@@ -1,21 +1,22 @@
-import { tickets } from "../data/tickets.js";
+import * as ticketRepository from "../repository/ticketRepository.js";
+import AppError from "../errors/AppError.js";
 
-export function listTickets() {
-  return tickets;
+export async function listTickets() {
+  return ticketRepository.findAll();
 }
 
-export function getTicketById(id) {
-  const ticket = tickets.find((t) => t.id === Number(id));
+export async function getTicketById(id) {
+  const ticket = await ticketRepository.findById(id);
   if (!ticket) {
-    throw new Error(`Ticket ${id} not found`);
+    throw AppError.notFound(`Ticket ${id} not found`);
   }
   return ticket;
 }
 
-export function countTickets() {
-  return tickets.length;
+export async function countTickets() {
+  return ticketRepository.countAll();
 }
 
-export function countOpenTickets() {
-  return tickets.filter((t) => t.status === "open").length;
+export async function countOpenTickets() {
+  return ticketRepository.countByStatus("open");
 }
