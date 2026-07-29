@@ -1,21 +1,47 @@
 import { Router } from "express";
-import { listTickets, getTicketById, countOpenTickets } from "../services/ticketService.js";
+import {
+  listTickets,
+  getTicketById,
+  countTickets,
+  countOpenTickets,
+} from "../services/ticketService.js";
+import AppError from "../errors/AppError.js";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.json(listTickets());
-});
+function toAppError(err) {
+  return err instanceof AppError ? err : new AppError(err.message);
+}
 
-router.get("/count", (req, res) => {
-  res.json({ open: countOpenTickets() });
-});
-
-router.get("/:id", (req, res) => {
+router.get("/", async (req, res, next) => {
   try {
-    res.json(getTicketById(req.params.id));
+    res.json(await listTickets());
   } catch (err) {
-    res.status(404).json({ error: err.message });
+    next(toAppError(err));
+  }
+});
+
+router.get("/count", async (req, res, next) => {
+  try {
+    res.json({ count: await countTickets() });
+  } catch (err) {
+    next(toAppError(err));
+  }
+});
+
+router.get("/open", async (req, res, next) => {
+  try {
+    res.json({ open: await countOpenTickets() });
+  } catch (err) {
+    next(toAppError(err));
+  }
+});
+
+router.get("/:id", async (req, res, next) => {
+  try {
+    res.json(await getTicketById(req.params.id));
+  } catch (err) {
+    next(toAppError(err));
   }
 });
 
