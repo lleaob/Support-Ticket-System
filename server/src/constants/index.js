@@ -7,3 +7,5 @@ export const ERROR_CODES = {
   VALIDATION: "VALIDATION",
   INTERNAL: "INTERNAL",
 };
+
+export const DEMO_PASSWORD = "password123";
