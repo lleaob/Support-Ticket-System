@@ -30,7 +30,7 @@ export async function findById(ticketId) {
         `${SELECT_TICKET} WHERE t.id = $1`,
         [ticketId]
     );
-    return rows[0]; // `return rows` would return an empty array like [] if NOT found. error handling !tickets would never change value.
+    return rows[0] || null; // `return rows` would return an empty array like [] if NOT found. error handling !tickets would never change value.
 }
 
 // countByStatus

@@ -1,4 +1,4 @@
-import * as ticketRepository from "../repository/ticketRepository.js";
+import * as ticketRepository from "../repositories/ticketRepository.js";
 import AppError from "../errors/AppError.js";
 
 export async function listTickets() {
