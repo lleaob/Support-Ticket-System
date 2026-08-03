@@ -1,23 +1,18 @@
 import { Router } from "express";
 import {
-  listTickets,
-  getTicketById,
+  listTicketsFor,
+  getTicketByIdFor,
   countTickets,
-  countOpenTickets,
+  countOpenTicketsFor,
 } from "../services/ticketService.js";
-import AppError from "../errors/AppError.js";
 
 const router = Router();
 
-function toAppError(err) {
-  return err instanceof AppError ? err : new AppError(err.message);
-}
-
 router.get("/", async (req, res, next) => {
   try {
-    res.json(await listTickets());
+    res.json(await listTicketsFor(req.user.id));
   } catch (err) {
-    next(toAppError(err));
+    next(err);
   }
 });
 
@@ -25,23 +20,23 @@ router.get("/count", async (req, res, next) => {
   try {
     res.json({ count: await countTickets() });
   } catch (err) {
-    next(toAppError(err));
+    next(err);
   }
 });
 
 router.get("/open", async (req, res, next) => {
   try {
-    res.json({ open: await countOpenTickets() });
+    res.json({ open: await countOpenTicketsFor(req.user.id) });
   } catch (err) {
-    next(toAppError(err));
+    next(err);
   }
 });
 
 router.get("/:id", async (req, res, next) => {
   try {
-    res.json(await getTicketById(req.params.id));
+    res.json(await getTicketByIdFor(req.params.id, req.user.id));
   } catch (err) {
-    next(toAppError(err));
+    next(err);
   }
 });
 
