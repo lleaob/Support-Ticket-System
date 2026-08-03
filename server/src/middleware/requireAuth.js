@@ -6,11 +6,11 @@ export function requireAuth(req, res, next) {
     //whole head to jwt.verify.. most common mistake
     //split the header... value is "Bearer aklsugdfk..." TWO space separated parts.
 
-    const [scheme, token] = (req.get("authorisation") || "").split(" ");
+    const [scheme, token] = (req.get("authorization") || "").split(" ");
     //when your FE send a req it attached a header that looks like...
     // Authorization: Bearer ahjsdgfljkasldkfjh...
 
-    if(scheme !== "Bearer || !token") {
+    if(scheme !== "Bearer" || !token) {
         return next(AppError.unauthenticated("Authentication failed."));
     }
 
