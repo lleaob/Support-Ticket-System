@@ -23,7 +23,12 @@ export async function login({ email, password }) {
 
   const user = await userRepository.findById(account.id);
   return { user, token: signAccessToken(user) };
-
 }
 
 
+// let a client ask "is this stored token still good, and whose is it"
+export async function getCurrentUser(userId) {
+  const user = await userRepository.findById(userId);
+  if (!user) throw AppError.notFound("User NOT found.")
+  return user;
+}
