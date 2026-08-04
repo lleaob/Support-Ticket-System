@@ -1,9 +1,8 @@
 // exchange credentials for a token, and give an attacker nothing
 import * as userRepository from "../repositories/userRepository.js";
 import AppError from "../errors/AppError.js"
-import {verifyPassword} from "../auth/passwords.js"
+import { verifyPassword } from "../auth/passwords.js"
 import { signAccessToken } from "../auth/tokens.js"
-import { sign } from "jsonwebtoken";
 
 const DUMMY_HASH = "$2b$12$3mGbr4x0qYjflmwTd8cD7.suq4dIj1HBdEERRB3RqFJTI50Fi2tXW";
 
