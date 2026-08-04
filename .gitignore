@@ -7,7 +7,11 @@ dist/
 # Environment variables
 .env
 .env.*
+!.env.example
 
 # Logs
 logs/
 *.log
+
+# Dev Utilities Folder
+utils/

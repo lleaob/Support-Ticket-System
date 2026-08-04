@@ -1,17 +1,42 @@
 import { Router } from "express";
-import { listTickets, getTicketById } from "../services/ticketService.js";
+import {
+  listTicketsFor,
+  getTicketByIdFor,
+  countTickets,
+  countOpenTicketsFor,
+} from "../services/ticketService.js";
 
 const router = Router();
 
-router.get("/", (req, res) => {
-  res.json(listTickets());
+router.get("/", async (req, res, next) => {
+  try {
+    res.json(await listTicketsFor(req.user.id));
+  } catch (err) {
+    next(err);
+  }
 });
 
-router.get("/:id", (req, res) => {
+router.get("/count", async (req, res, next) => {
   try {
-    res.json(getTicketById(req.params.id));
+    res.json({ count: await countTickets() });
   } catch (err) {
-    res.status(404).json({ error: err.message });
+    next(err);
+  }
+});
+
+router.get("/open", async (req, res, next) => {
+  try {
+    res.json({ open: await countOpenTicketsFor(req.user.id) });
+  } catch (err) {
+    next(err);
+  }
+});
+
+router.get("/:id", async (req, res, next) => {
+  try {
+    res.json(await getTicketByIdFor(req.params.id, req.user.id));
+  } catch (err) {
+    next(err);
   }
 });
 
